@@ -4,6 +4,9 @@ include $(TOP)/configure/CONFIG
 # set to -d to get debugging
 DEBUG :=
 
+#XMLBUILDER := dls-xml-iocbuilder.py
+XMLBUILDER := /dls_sw/work/common/python/iocbuilder/xmlbuilder/xmlbuilder.py
+
 # this is the doxygen output dir
 DOCDIR := $(TOP)/documentation/doxygen
 
@@ -18,7 +21,7 @@ $(DOCDIR): config.src manual.src $(DOCDIR)/build_instructions_example
 # rule for generating build instructions from an xml file
 $(DOCDIR)/build_instructions_%: $(TOP)/etc/makeIocs/%.xml
 	mkdir -p $(DOCDIR)
-	dls-xml-iocbuilder.py --doc=$@ $(DEBUG) $^
+	$(XMLBUILDER) --doc=$@ $(DEBUG) $^
 
 # rule for generating build instructions from a py file
 $(DOCDIR)/build_instructions_%: $(TOP)/etc/makeIocs/%.py
