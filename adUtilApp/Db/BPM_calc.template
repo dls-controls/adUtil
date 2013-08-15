@@ -1,0 +1,33 @@
+# Macros:
+# % macro, P, Device Prefix
+# % macro, R, Device Suffix
+# % macro, PORT, Asyn Port name
+# % macro, TIMEOUT, Timeout
+# % macro, ADDR, Asyn Port address
+# % macro, GEOMETRY, Geometry of BPM, 0=Slit, 1=QBPM
+
+# This associates the template with an edm screen
+# % gui, $(PORT), edmtab, BPM_calc.edl, P=$(P),R=$(R)
+
+###################################################################
+#  These records control the geometry (slit blades / qbpm)        #
+###################################################################
+# % autosave 2 
+record(mbbo, "$(P)$(R)GEOMETRY")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))GEOMETRY")
+   field(VAL, "$(GEOMETRY=1)")
+   field(ZRST, "Slit")
+   field(ONST, "QBPM")
+   field(PINI, "YES")   
+}
+
+record(mbbi, "$(P)$(R)GEOMETRY_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))GEOMETRY")
+   field(SCAN, "I/O Intr")
+   field(ZRST, "Slit")
+   field(ONST, "QBPM")   
+}
