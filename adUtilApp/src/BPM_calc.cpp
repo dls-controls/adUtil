@@ -130,7 +130,7 @@ void BPM_calc::processCallbacks(NDArray *pArray)
 
     /* Get the geometry */
     getIntegerParam(BPM_calcGeometry, &geometry);
-    printf("Geometry %d: ", geometry);
+    printf("Geometry: %d\n", geometry);
 
     /* This function is called with the lock taken, and it must be set
        when we exit. The following code can be exected without the mutex
@@ -212,8 +212,8 @@ BPM_calc::BPM_calc(const char *portName, int queueSize, int blockingCallbacks,
     /* Invoke the base class constructor */
     : NDPluginDriver(portName, queueSize, blockingCallbacks, NDArrayPort,
                      NDArrayAddr, 1, NUM_BPM_CALC_PARAMS, maxBuffers, maxMemory,
-                     asynGenericPointerMask | asynInt32Mask,
-                     asynGenericPointerMask | asynInt32Mask,
+                     asynGenericPointerMask,
+                     asynGenericPointerMask,
                      /* asynFlags is set to 0, because this plugin cannot
                         block and is not multi-device. It does autoconnect */
                      0, 1, priority, stackSize)

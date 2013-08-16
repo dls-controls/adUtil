@@ -19,7 +19,9 @@ record(mbbo, "$(P)$(R)GEOMETRY")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))GEOMETRY")
    field(VAL, "$(GEOMETRY=1)")
    field(ZRST, "Slit")
+   field(ZRVL, "0")
    field(ONST, "QBPM")
+   field(ONVL, "1")
    field(PINI, "YES")   
 }
 
@@ -29,5 +31,7 @@ record(mbbi, "$(P)$(R)GEOMETRY_RBV")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))GEOMETRY")
    field(SCAN, "I/O Intr")
    field(ZRST, "Slit")
-   field(ONST, "QBPM")   
+   field(ZRVL, "0")
+   field(ONST, "QBPM")
+   field(ONVL, "1")
 }

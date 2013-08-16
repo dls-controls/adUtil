@@ -52,7 +52,7 @@ void FFT_calc::processCallbacks(NDArray *pInput) {
 	const char *functionName = "processCallbacks";
 	int window;
 	unsigned int chan, i;
-	double *dInput, *dOutput, *dWindow, *dWorkspace;
+	double *dInput, *dOutput, *dWindow, *dWorkspace, *dScratch;
 	double windowParam;
 	size_t dims[2];
 	NDArrayInfo_t arrayInfo;
@@ -116,35 +116,35 @@ void FFT_calc::processCallbacks(NDArray *pInput) {
 		/* Create the window */
 		switch (window) {
 		case RECT:
-			WindowRect(dWorkspace, arrayInfo.ySize);
+			WindowRect(dWindow, arrayInfo.ySize);
 			break;
 		case HANN:
-			WindowHann(dWorkspace, arrayInfo.ySize);
+			WindowHann(dWindow, arrayInfo.ySize);
 			break;
 		case HAMMING:
-			WindowHamming(dWorkspace, arrayInfo.ySize);
+			WindowHamming(dWindow, arrayInfo.ySize);
 			break;
 		case BLACKMAN:
-			WindowBlackman(dWorkspace, arrayInfo.ySize,
+			WindowBlackman(dWindow, arrayInfo.ySize,
 					windowParam);
 			break;
 		case BLACKMANHARRIS:
-			WindowBlackmanHarris(dWorkspace,
+			WindowBlackmanHarris(dWindow,
 					arrayInfo.ySize);
 			break;
 		case KAISERBESSEL:
-			WindowKaiserBessel(dWorkspace, arrayInfo.ySize,
+			WindowKaiserBessel(dWindow, arrayInfo.ySize,
 					windowParam);
 			break;
 		case GAUSSIAN:
-			WindowGauss(dWorkspace, arrayInfo.ySize,
+			WindowGauss(dWindow, arrayInfo.ySize,
 					windowParam);
 			break;
 		}
 	}
 
 	/* Create our output NDArray, same size as our input array, but flipped */
-	dims[0] = arrayInfo.ySize; // nsamples
+	dims[0] = arrayInfo.ySize / 2; // nsamples / 2
 	dims[1] = arrayInfo.xSize; // nchannels
 	this->pArrays[0] = this->pNDArrayPool->alloc(2, dims, (NDDataType_t) NDFloat64, 0,
 			NULL);
@@ -155,33 +155,44 @@ void FFT_calc::processCallbacks(NDArray *pInput) {
 	}
 	this->getAttributes(this->pArrays[0]->pAttributeList);
 
+	/* Give ourselves a bit of memory to created a windowed input */
+	NDArray *pScratch = this->pNDArrayPool->alloc(1, &arrayInfo.ySize, (NDDataType_t) NDFloat64, 0,
+			NULL);
+	if (pScratch == NULL) {
+		asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
+				"%s:%s: Cannot allocate pScratch array\n", driverName, functionName);
+		return;
+	}
+
 	/* Unlock for long operations */
 	this->unlock();
 
 	/* For each channel in the input array */
 	for (chan = 0; chan < arrayInfo.xSize; chan++) {
-		/* Use the relevant bit of the pOutput array to put windowed data in */
-		dOutput = ((double *) this->pArrays[0]->pData) + chan * arrayInfo.ySize;
 		/* Step through the input data and multiply it by the window */
 		dInput = (double *) pInput->pData;
 		/* Pointer to FFT data block and window */
 		dWorkspace = (double *) this->pWorkspace->pData;
 		dWindow = (double *) this->pWindow->pData;
+		dScratch = (double *) pScratch->pData;
+		/* Multiply by the window function and scale by the input array size*/
 		for (i = 0; i < arrayInfo.ySize; i++) {
-			*dOutput++ = dWindow[i] * dInput[i * 4 + chan];
+			dScratch[i] = dWindow[i] * dInput[i * arrayInfo.xSize + chan] / arrayInfo.ySize;
 		}
 		/* Calculate the fft of our newly prepared windowed data */
-		rfftf(arrayInfo.ySize, dOutput, dWorkspace);
-		/* First element is first element of dWorkspace */
-		*dOutput++ = *dWorkspace;
+		rfftf(arrayInfo.ySize, dScratch, dWorkspace);
+		/* First element is first element of dScratch */
+		dOutput = ((double *) this->pArrays[0]->pData) + chan * arrayInfo.ySize / 2;
+		dOutput[0] = *dScratch;
 		/* Calculate the magnitude for each output element */
-		for (i = 1; i < arrayInfo.ySize; i++) {
-			const double imag = dWorkspace[2 * i - 1], real = dWorkspace[2 * i];
-			*dOutput++ = sqrt(imag * imag + real * real);
+		for (i = 1; i < arrayInfo.ySize / 2; i++) {
+			const double imag = dScratch[2 * i - 1], real = dScratch[2 * i];
+			dOutput[i] = sqrt(imag * imag + real * real);
 		}
 	}
 
 	/* Output the processed waveform, lock and return */
+	pScratch->release();
 	this->doCallbacksGenericPointer(this->pArrays[0], NDArrayData, 0);
 	this->lock();
 	this->callParamCallbacks();
