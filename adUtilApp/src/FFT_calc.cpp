@@ -42,7 +42,8 @@ private:
 	enum windowType {
 		RECT, HANN, HAMMING, BLACKMAN, BLACKMANHARRIS, KAISERBESSEL, GAUSSIAN
 	};
-	int cachedWindow, cachedWindowParam;
+	int cachedWindow;
+	double cachedWindowParam;
 	NDArray *pWindow, *pWorkspace;
 };
 #define NUM_FFT_CALC_PARAMS ((int)(&LAST_FFT_CALC_PARAM - &FIRST_FFT_CALC_PARAM + 3))
@@ -153,6 +154,19 @@ void FFT_calc::processCallbacks(NDArray *pInput) {
 				"%s:%s: Cannot allocate pOutput array\n", driverName, functionName);
 		return;
 	}
+	
+	/* Save the dims of this new array */
+	NDDimension_t dim0 = this->pArrays[0]->dims[0], dim1 = this->pArrays[0]->dims[1];
+	
+    /* Copy everything except the data, e.g. uniqueId and timeStamp, attributes. */
+    this->pNDArrayPool->copy(pInput, this->pArrays[0], 0);	
+    
+    /* That replaced the dimensions in the output array, need to fix. */
+    this->pArrays[0]->ndims = 2;
+    this->pArrays[0]->dims[0] = dim0;
+    this->pArrays[0]->dims[1] = dim1;
+    
+    /* Get any additional attributes for this new array */
 	this->getAttributes(this->pArrays[0]->pAttributeList);
 
 	/* Give ourselves a bit of memory to created a windowed input */

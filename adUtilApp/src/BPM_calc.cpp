@@ -117,7 +117,7 @@ void BPM_calc::processCallbacks(NDArray *pArray)
  	/* Allocate 3 x n_elements NDFloat64 NDArray */
     pArray->getInfo(&arrayInfo);
     dims[0] = 3;
-    dims[1] =  arrayInfo.ySize;
+    dims[1] = arrayInfo.ySize;
     this->pArrays[0] = this->pNDArrayPool->alloc(2, dims, (NDDataType_t)NDFloat64,
                                            0, NULL);
     if (this->pArrays[0] == NULL) {
@@ -126,11 +126,23 @@ void BPM_calc::processCallbacks(NDArray *pArray)
     			driverName, functionName);
     	return;
     }
-    this->getAttributes(this->pArrays[0]->pAttributeList);
+	
+	/* Save the dims of this new array */
+	NDDimension_t dim0 = this->pArrays[0]->dims[0], dim1 = this->pArrays[0]->dims[1];    
+	
+    /* Copy everything except the data, e.g. uniqueId and timeStamp, attributes. */
+    this->pNDArrayPool->copy(pArray, this->pArrays[0], 0);	
+    
+    /* That replaced the dimensions in the output array, need to fix. */
+    this->pArrays[0]->ndims = 2;
+    this->pArrays[0]->dims[0] = dim0;
+    this->pArrays[0]->dims[1] = dim1;
+    
+    /* Get any additional attributes for this new array */
+	this->getAttributes(this->pArrays[0]->pAttributeList);
 
     /* Get the geometry */
     getIntegerParam(BPM_calcGeometry, &geometry);
-    printf("Geometry: %d\n", geometry);
 
     /* This function is called with the lock taken, and it must be set
        when we exit. The following code can be exected without the mutex
@@ -149,7 +161,7 @@ void BPM_calc::processCallbacks(NDArray *pArray)
 
     /* Calculate output and put in new NDArray */
     for (i=0; i<arrayInfo.ySize; i++) {
-        *pIData = *pAData + *pBData + *pBData + *pDData;
+        *pIData = *pAData + *pBData + *pCData + *pDData;
     	if (geometry == 0) {
     		// slits
     		double div = *pAData + *pCData;
