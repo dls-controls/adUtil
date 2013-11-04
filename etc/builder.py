@@ -1,8 +1,13 @@
-from iocbuilder import Device, AutoSubstitution, SetSimulation
+from iocbuilder import Device, AutoSubstitution, SetSimulation, Xml
 from iocbuilder.arginfo import *
 
 from iocbuilder.modules.areaDetector import AreaDetector, _ADBase, _ADBaseTemplate, _NDPluginProducerBase, _NDPluginBase
 from iocbuilder.modules.asyn import AsynIP
+
+class gdaPlugins(Xml):
+    """This plugin instantiates a standard set of plugins for use by GDA:"""
+    TemplateFile = 'gdaPlugins.xml'
+gdaPlugins.ArgInfo.descriptions["CAM"] = Ident("Areadetecor camera to connect to", _ADBase)
 
 class AdUtil(Device):
     '''Library dependencies for adUtil'''
