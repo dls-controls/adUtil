@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 #
 DB += BPM_calc.template
 DB += FFT_calc.template
+DB += zxingBarCode.template
 
 include $(TOP)/configure/RULES
 #----------------------------------------

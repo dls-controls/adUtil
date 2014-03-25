@@ -25,17 +25,16 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/dls_sw/epics/R3.14.11/base
+EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
 
-# Set RULES here if you want to take build rules from somewhere
-# other than EPICS_BASE:
-#RULES=/path/to/epics/support/module/rules/x-y
-
-#WORK=/dls_sw/work/R3.14.11/support
-SUPPORT=/dls_sw/prod/R3.14.11/support
+WORK=/dls_sw/work/R3.14.12.3/support
+SUPPORT=/dls_sw/prod/R3.14.12.3/support
 
 ASYN=          $(SUPPORT)/asyn/4-21
-AREADETECTOR=  $(SUPPORT)/areaDetector/1-9dls5
-FFMPEGSERVER=  $(SUPPORT)/ffmpegServer/2-1-1dls5
+AREADETECTOR=  $(SUPPORT)/areaDetector/1-9dls6
+FFMPEGSERVER=  $(SUPPORT)/ffmpegServer/2-1-1dls6
+
+
+ZXING=/dls_sw/prod/tools/RHEL6-x86_64/zxing/2-2/prefix
 
 
