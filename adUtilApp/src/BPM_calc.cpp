@@ -35,8 +35,11 @@ public:
     void processCallbacks(NDArray *pArray);
 protected:
     int BPM_calcGeometry;
+    int BPM_scaleX;
+    int BPM_scaleY;
+    int BPM_scaleI;
     #define FIRST_BPM_CALC_PARAM BPM_calcGeometry
-    #define LAST_BPM_CALC_PARAM BPM_calcGeometry
+    #define LAST_BPM_CALC_PARAM BPM_scaleI
 };
 #define NUM_BPM_CALC_PARAMS ((int)(&LAST_BPM_CALC_PARAM - &FIRST_BPM_CALC_PARAM + 1))
 static const char *driverName="BPM_calc";
@@ -93,6 +96,9 @@ void BPM_calc::processCallbacks(NDArray *pArray)
 	const char *functionName = "processCallbacks";
     unsigned int i;
     int geometry;
+    double scaleX;
+    double scaleY;
+    double scaleI;
     size_t dims[2];
     NDArrayInfo_t arrayInfo;
 
@@ -159,23 +165,27 @@ void BPM_calc::processCallbacks(NDArray *pArray)
     double * pYData = (double *)this->pArrays[0]->pData + 1;
     double * pIData = (double *)this->pArrays[0]->pData + 2;
 
+    getDoubleParam(BPM_scaleX, &scaleX);
+    getDoubleParam(BPM_scaleY, &scaleY);
+    getDoubleParam(BPM_scaleI, &scaleI);
+
     /* Calculate output and put in new NDArray */
     for (i=0; i<arrayInfo.ySize; i++) {
-        *pIData = *pAData + *pBData + *pCData + *pDData;
+        *pIData = (*pAData + *pBData + *pCData + *pDData) * scaleI;
     	if (geometry == 0) {
     		// slits
     		double div = *pAData + *pCData;
     		if (div < 0.01 && div > -0.01) div = 100; // No signal
-    		*pXData = (*pAData - *pCData) / div;
+    		*pXData = (*pAData - *pCData) * scaleX / div;
     		div = *pDData + *pBData;
     		if (div < 0.01 && div > -0.01) div = 100; // No signal
-    		*pYData = (*pDData - *pBData) / div;
+    		*pYData = (*pDData - *pBData) * scaleY / div;
     	} else {
     		// QBPM
-    		double div = *pIData;
+    		double div = *pAData + *pBData + *pCData + *pDData;
     		if (div < 0.01 && div > -0.01) div = 100; // No signal
-    		*pXData = ((*pAData + *pBData) - (*pCData + *pDData)) / div;
-    		*pYData = ((*pAData + *pDData) - (*pBData + *pCData)) / div;
+    		*pXData = ((*pAData + *pDData) - (*pBData + *pCData)) * scaleX / div;
+    		*pYData = ((*pAData + *pBData) - (*pCData + *pDData)) * scaleY / div;
     	}
         pXData += 3; pYData += 3; pIData += 3;
         pAData += 4; pBData += 4; pCData += 4; pDData += 4;
@@ -232,8 +242,15 @@ BPM_calc::BPM_calc(const char *portName, int queueSize, int blockingCallbacks,
 {
 	/* Add parameters */
     createParam("GEOMETRY", asynParamInt32, &BPM_calcGeometry);
+    createParam("BPM_SCALE_X", asynParamFloat64, &BPM_scaleX);
+    createParam("BPM_SCALE_Y", asynParamFloat64, &BPM_scaleY);
+    createParam("BPM_SCALE_I", asynParamFloat64, &BPM_scaleI);
     /* Set the plugin type string */
     setStringParam(NDPluginDriverPluginType, "BPM_calc");
+    /* Set default scales */
+    setDoubleParam(BPM_scaleX, 1.0);
+    setDoubleParam(BPM_scaleY, 1.0);
+    setDoubleParam(BPM_scaleI, 1.0);
     /* Try to connect to the NDArray port */
     connectToArrayPort();
 }
