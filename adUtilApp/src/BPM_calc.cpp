@@ -150,6 +150,10 @@ void BPM_calc::processCallbacks(NDArray *pArray)
     /* Get the geometry */
     getIntegerParam(BPM_calcGeometry, &geometry);
 
+    getDoubleParam(BPM_scaleX, &scaleX);
+    getDoubleParam(BPM_scaleY, &scaleY);
+    getDoubleParam(BPM_scaleI, &scaleI);
+
     /* This function is called with the lock taken, and it must be set
        when we exit. The following code can be exected without the mutex
        because we are not accessing pPvt */
@@ -165,25 +169,21 @@ void BPM_calc::processCallbacks(NDArray *pArray)
     double * pYData = (double *)this->pArrays[0]->pData + 1;
     double * pIData = (double *)this->pArrays[0]->pData + 2;
 
-    getDoubleParam(BPM_scaleX, &scaleX);
-    getDoubleParam(BPM_scaleY, &scaleY);
-    getDoubleParam(BPM_scaleI, &scaleI);
-
     /* Calculate output and put in new NDArray */
     for (i=0; i<arrayInfo.ySize; i++) {
         *pIData = (*pAData + *pBData + *pCData + *pDData) * scaleI;
     	if (geometry == 0) {
     		// slits
     		double div = *pAData + *pCData;
-    		if (div < 0.01 && div > -0.01) div = 100; // No signal
+    		if (div < 0.01 && div > -0.01) div = 0.01; // No signal
     		*pXData = (*pAData - *pCData) * scaleX / div;
     		div = *pDData + *pBData;
-    		if (div < 0.01 && div > -0.01) div = 100; // No signal
+    		if (div < 0.01 && div > -0.01) div = 0.01; // No signal
     		*pYData = (*pDData - *pBData) * scaleY / div;
     	} else {
     		// QBPM
     		double div = *pAData + *pBData + *pCData + *pDData;
-    		if (div < 0.01 && div > -0.01) div = 100; // No signal
+    		if (div < 0.01 && div > -0.01) div = 0.01; // No signal
     		*pXData = ((*pAData + *pDData) - (*pBData + *pCData)) * scaleX / div;
     		*pYData = ((*pAData + *pBData) - (*pCData + *pDData)) * scaleY / div;
     	}
