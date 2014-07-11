@@ -20,13 +20,6 @@ adUtil_SRCS += bessel.cpp
 adUtil_SRCS += window.cpp
 adUtil_SRCS += fftpack.cpp
 adUtil_SRCS += FFT_calc.cpp
-adUtil_SRCS += BufferBitmapSource.cpp 
-adUtil_SRCS += zxingBarCodePlugin.cpp
-
-# Add zxing libs from external directory
-adUtil_LIBS += zxing
-USR_CXXFLAGS += -I$(ZXING)/include
-zxing_DIR=$(ZXING)/lib
 
 # We need to link against the EPICS Base libraries
 #xxx_LIBS += $(EPICS_BASE_IOC_LIBS)

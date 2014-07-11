@@ -31,10 +31,8 @@ WORK=/dls_sw/work/R3.14.12.3/support
 SUPPORT=/dls_sw/prod/R3.14.12.3/support
 
 ASYN=          $(SUPPORT)/asyn/4-21
-AREADETECTOR=  $(SUPPORT)/areaDetector/1-9dls12
-FFMPEGSERVER=  $(SUPPORT)/ffmpegServer/2-1-1dls9
-
-
-ZXING=/dls_sw/prod/tools/RHEL6-x86_64/zxing/2-2/prefix
-
+#AREADETECTOR=  $(SUPPORT)/areaDetector/1-9dls12
+#FFMPEGSERVER=  $(SUPPORT)/ffmpegServer/2-1-1dls9
+AREADETECTOR=  $(WORK)/areaDetector
+FFMPEGSERVER=  $(WORK)/ffmpegServer
 
