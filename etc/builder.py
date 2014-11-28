@@ -36,3 +36,39 @@ class FFT_calc(_NDPluginProducerBase):
     _SpecificTemplate = _FFT_calc
     ArgInfo = _SpecificTemplate.ArgInfo + _NDPluginBase.ArgInfo
     Dependencies = (AdUtil,)
+
+class _NDCircularBuffPlugin(AutoSubstitution):
+    TemplateFile = 'NDCircularBuffPlugin.template'
+
+class NDCircularBuffPlugin(_NDPluginBase):
+    '''This plugin provides a pre and post external trigger frame capture buffer'''
+    #Dependencies = (FFmpegServer,)    
+    _SpecificTemplate = _NDCircularBuffPlugin
+    
+    def __init__(self, QUEUE = 50, BUFFERS = 1000, MEMORY = -1, Enabled = 1, **args):
+        # Init the superclass (_NDPluginBase)
+        args["Enabled"] = Enabled
+        self.__super.__init__(**args)
+        # Store the args
+        self.__dict__.update(locals())
+
+    # __init__ arguments
+    # NOTE: _NDPluginBase comes 2nd so we overwrite NDARRAY_PORT argInfo
+    ArgInfo = _SpecificTemplate.ArgInfo + _NDPluginBase.ArgInfo + makeArgInfo(__init__,        
+        Enabled   = Simple('Plugin Enabled at startup?', int),
+        QUEUE     = Simple('Input array queue size', int),          
+        BUFFERS   = Simple('Max number of buffers to allocate', int),
+        MEMORY    = Simple('Max memory to allocate, should be maxw*maxh*nbuffer '
+            'for driver and all attached plugins', int))
+    Dependencies = [AdUtil,]
+    #def InitialiseOnce(self):
+    #    print "ffmpegServerConfigure(%(HTTP_PORT)d)" % self.__dict__                        
+                                                                        
+    def Initialise(self):
+        print '# NDCircularBuffConfigure(portName, queueSize, blockingCallbacks, '\
+            'NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)'    
+        print 'NDCircularBuffConfigure(' \
+            '"%(PORT)s", %(QUEUE)d, %(BLOCK)d, "%(NDARRAY_PORT)s", ' \
+            '"%(NDARRAY_ADDR)s", %(BUFFERS)d, %(MEMORY)d)' % self.__dict__
+
+

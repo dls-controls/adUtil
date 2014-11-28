@@ -20,6 +20,8 @@ adUtil_SRCS += bessel.cpp
 adUtil_SRCS += window.cpp
 adUtil_SRCS += fftpack.cpp
 adUtil_SRCS += FFT_calc.cpp
+adUtil_SRCS += NDPluginCircularBuff.cpp
+adUtil_SRCS += NDArrayRing.cpp
 
 # We need to link against the EPICS Base libraries
 #xxx_LIBS += $(EPICS_BASE_IOC_LIBS)
