@@ -37,13 +37,13 @@ class FFT_calc(_NDPluginProducerBase):
     ArgInfo = _SpecificTemplate.ArgInfo + _NDPluginBase.ArgInfo
     Dependencies = (AdUtil,)
 
-class _NDCircularBuffPlugin(AutoSubstitution):
-    TemplateFile = 'NDCircularBuffPlugin.template'
+class _NDCircularBuff(AutoSubstitution):
+    TemplateFile = 'NDCircularBuff.template'
 
-class NDCircularBuffPlugin(_NDPluginBase):
+class NDCircularBuff(_NDPluginBase):
     '''This plugin provides a pre and post external trigger frame capture buffer'''
     #Dependencies = (FFmpegServer,)    
-    _SpecificTemplate = _NDCircularBuffPlugin
+    _SpecificTemplate = _NDCircularBuff
     
     def __init__(self, QUEUE = 50, BUFFERS = 1000, MEMORY = -1, Enabled = 1, **args):
         # Init the superclass (_NDPluginBase)
