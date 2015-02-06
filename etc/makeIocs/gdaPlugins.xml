@@ -18,7 +18,7 @@
 	<areaDetector.NDProcess ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).proc" QUEUE="$(PLUGINQUEUE=16)" BUFFERS="$(PLUGINBUFFERS=0)" R=":PROC:" TIMEOUT="1"/>
 	<areaDetector.NDOverlay ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(PORTPREFIX).proc" P="$(P)" PORT="$(PORTPREFIX).over" QUEUE="$(PLUGINQUEUE=16)" BUFFERS="$(PLUGINBUFFERS=0)" R=":OVER:" TIMEOUT="1"/>
 	<ffmpegServer.ffmpegFile ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).fimg" QUEUE="$(PLUGINQUEUE=16)" R=":FIMG:" TIMEOUT="1"/>
-	<areaDetector.NDFileTIFF ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).tiff" R=":TIFF:" TIMEOUT="1"/>
+	<areaDetector.NDFileTIFF ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).tiff" QUEUE="$(PLUGINQUEUE=16)" R=":TIFF:" TIMEOUT="1"/>
 	<areaDetector.NDFileHDF5 ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).hdf" QUEUE="$(PLUGINQUEUE=16)" R=":HDF5:" TIMEOUT="1"/>
 	<ffmpegServer.ffmpegStream ADDR="0" HTTP_PORT="$(HTTP_PORT=8080)" NDARRAY_ADDR="0" NDARRAY_PORT="$(PORTPREFIX).over" P="$(P)" PORT="$(PORTPREFIX).mjpg" QUEUE="$(DISPLAYQUEUE=2)" R=":MJPG:" TIMEOUT="1"/>
 	<EPICS_BASE.StartupCommand command="dbpf &quot;$(P):FIMG:FileTemplate&quot;, &quot;%s/%s_%d.avi&quot;" post_init="True"/>
