@@ -18,6 +18,7 @@ typedef enum NDPluginReframeMode {
 /* Param definitions */
 #define NDPluginReframeControlString               "REFRAME_CONTROL"       /* (asynInt32,        r/w) Arm plugin */
 #define NDPluginReframeStatusString                "REFRAME_STATUS"        /* (asynOctetRead,    r/o) Status */
+#define NDPluginReframeModeString                  "REFRAME_MODE"          /* (asynInt32,        r/o) Mode */
 #define NDPluginReframeSoftTriggerString           "REFRAME_SOFT_TRIGGER"  /* (asynInt32,        r/w) Force a soft trigger */
 // ###TODO: Don't think this does anything. Replace with mode variable and implement some useful readback params.
 #define NDPluginReframeTriggeredString             "REFRAME_TRIGGERED"     /* (asynInt32,        r/o) Have we had a trigger event */
@@ -56,6 +57,7 @@ protected:
     int NDPluginReframeSoftTrigger;
     int NDPluginReframeTriggered;
     int NDPluginReframeStatus;
+    int NDPluginReframeMode;
 
     int NDPluginReframeTriggerDimension; // Hard-code to 1 for now
     int NDPluginReframeTriggerChannel;
@@ -75,9 +77,11 @@ protected:
 
 private:
     // Methods
-    int containsTriggerStart();                    // Search for gate start in current buffer and return true if found. Sets gateStartOffset_.
-    int containsTriggerEnd();                      // Search for gate end in current buffer and return true if found. Sets gateEndOffset_.
-    NDArray *constructOutput();               // Create a single output NDArray from the arrays stored in preBuffer_.
+    template<typename epicsType> int containsTriggerStart();                    // Search for gate start in current buffer and return true if found. Sets gateStartOffset_.
+    template<typename epicsType> int containsTriggerEnd();                      // Search for gate end in current buffer and return true if found. Sets gateEndOffset_.
+    template<typename epicsType> NDArray *constructOutput();               // Create a single output NDArray from the arrays stored in preBuffer_.
+    void handleNewArray(NDArray *pDataCopy);
+    template<typename epicsType> void handleNewArrayT(NDArray *pDataCopy);
     int bufferSizeCounts(int start);          // Utility function; walks the NDArray buffer from the given start array to the end and returns the total size in counts.
     int arrayIsValid(NDArray *pArray);         // Checks that input arrays have the expected number of dimensions & the number of channels is consistent.
 
@@ -85,7 +89,6 @@ private:
     std::deque<NDArray *> *arrayBuffer_;
     int triggerStartOffset_;
     int triggerEndOffset_;
-    NDPluginReframeMode mode_;
 };
 #define NUM_NDPLUGIN_REFRAME_PARAMS ((int)(&LAST_NDPLUGIN_REFRAME_PARAM - &FIRST_NDPLUGIN_REFRAME_PARAM + 1))
 
