@@ -137,6 +137,18 @@ record(longout, "$(P)$(R)TriggerCount") {
   field(PINI, "1")
 }
 
+record(mbbo, "$(P)$(R)TriggerMode") {
+  field(DTYP, "asynInt32")
+  field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))REFRAME_REARM_MODE")
+  field(ZRST, "Single")
+  field(ZRVL, "0")
+  field(ONST, "Multiple")
+  field(ONVL, "1")
+  field(TWST, "Continuous")
+  field(TWVL, "2")
+  field(VAL,  "2")
+}
+
 record(longin, "$(P)$(R)TriggerCount_RBV") {
   field(DTYP, "asynInt32")
   field(INP, "@asyn($(PORT) 0)REFRAME_TRIGGER_COUNT")
