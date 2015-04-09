@@ -93,7 +93,7 @@ void BPM_calc::processCallbacks(NDArray *pArray)
        asyn array interfaces with the data in our private buffer.
        It is called with the mutex already locked.
     */
-	const char *functionName = "processCallbacks";
+    const char *functionName = "processCallbacks";
     unsigned int i;
     int geometry;
     double scaleX;
