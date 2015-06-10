@@ -94,7 +94,7 @@ class NDReframe(_NDPluginBase):
         QUEUE     = Simple('Input array queue size', int),          
         BUFFERS   = Simple('Max number of buffers to allocate', int),
         MEMORY    = Simple('Max memory to allocate, should be maxw*maxh*nbuffer '
-            'for driver and all attached plugins', int))
+            'for driver and all attached plugins.', int))
     Dependencies = [AdUtil,]
     #def InitialiseOnce(self):
     #    print "ffmpegServerConfigure(%(HTTP_PORT)d)" % self.__dict__                        
