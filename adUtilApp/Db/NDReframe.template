@@ -4,6 +4,8 @@
 # % macro, P,         Device Prefix
 # % macro, R,         Device Suffix
 # % macro, PORT,      Asyn Port name
+# % macro, ADDR,      Asyn address
+# % macro, TIMEOUT,   Asyn timeout
 # % macro, PRECOUNT,  Pre-trigger frame count
 # % macro, POSTCOUNT, Post-trigger frame count
 # % gui, $(PORT), edmtab, NDReframe.edl, P=$(P),R=$(R)
