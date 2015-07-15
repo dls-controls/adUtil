@@ -1,13 +1,21 @@
 #=================================================================#
 # Template file: NDReframe.template
 # Macros:
-# % macro, P,         Device Prefix
-# % macro, R,         Device Suffix
-# % macro, PORT,      Asyn Port name
-# % macro, ADDR,      Asyn address
-# % macro, TIMEOUT,   Asyn timeout
-# % macro, PRECOUNT,  Pre-trigger frame count
-# % macro, POSTCOUNT, Post-trigger frame count
+# % macro, P,             Device Prefix
+# % macro, R,             Device Suffix
+# % macro, PORT,          Asyn Port name
+# % macro, ADDR,          Asyn address
+# % macro, TIMEOUT,       Asyn timeout
+# % macro, PRECOUNT,      Pre-trigger frame count
+# % macro, POSTCOUNT,     Post-trigger frame count
+# % macro, TRIG_CHANNEL,  Channel number to look for triggers on
+# % macro, ON_CONDITION,  Condition to test to detect start of trigger. 0=Below Threshold, 1=Above Threshold, 2=Rising Edge, 3=Falling Edge, 4=Always On, 5=Always Off.
+# % macro, ON_THRESHOLD,  Threshold to test against for start of trigger (if required for trigger condition)
+# % macro, OFF_CONDITION, Condition to test to detect end of trigger. 0=Below Threshold, 1=Above Threshold, 2=Rising Edge, 3=Falling Edge, 4=Always On, 5=Always Off.
+# % macro, OFF_THRESHOLD, Threshold to test against for end of trigger (if required for trigger condition)
+# % macro, TRIGGER_MODE,  What to do after full trigger is detected - 0=Single (no rearm), 1=Multiple (rearm until TRIGGER_COUNT triggers detected, then stop), 2=Continuous (always rearm after trigger).
+# % macro, TRIGGER_COUNT, Number of triggers to acquire before returning to Idle - only used for Multiple trigger mode.
+# % macro, OVERLAP,       Permit pre- and post-count regions of triggers to overlap with other triggers.
 # % gui, $(PORT), edmtab, NDReframe.edl, P=$(P),R=$(R)
 
 # # Control record, are we running
@@ -87,14 +95,7 @@ record(bi, "$(P)$(R)Soft_Trigger_RBV") {
 record(longout, "$(P)$(R)TriggerChannel") {
   field(DTYP, "asynInt32")
   field(OUT, "@asyn($(PORT) 0)REFRAME_TRIGGER_CHAN")
-  field(VAL, "1")
-  field(PINI, "1")
-}
-
-record(longout, "$(P)$(R)TriggerChannel") {
-  field(DTYP, "asynInt32")
-  field(OUT, "@asyn($(PORT) 0)REFRAME_TRIGGER_CHAN")
-  field(VAL, "1")
+  field(VAL, "$(TRIG_CHANNEL=1)")
   field(PINI, "1")
 }
 
@@ -113,14 +114,14 @@ record(mbbo, "$(P)$(R)TriggerOnCond") {
   field(FRVL, "4")
   field(FVST, "Always Off")
   field(FVVL, "5")
-  field(VAL, "1")
+  field(VAL, "$(ON_CONDITION=1)")
   field(PINI, "1")
 }
 
 record(ao, "$(P)$(R)TriggerOnThresh") {
   field(DTYP, "asynFloat64")
   field(OUT, "@asyn($(PORT) 0)REFRAME_START_THRESH")
-  field(VAL, "1.0")
+  field(VAL, "$(ON_THRESHOLD=1.0)")
   field(PINI, "1")
 }
 
@@ -139,21 +140,21 @@ record(mbbo, "$(P)$(R)TriggerOffCond") {
   field(FRVL, "4")
   field(FVST, "Always Off")
   field(FVVL, "5")
-  field(VAL, "0")
+  field(VAL, "$(OFF_CONDITION=0)")
   field(PINI, "1")
 }
 
 record(ao, "$(P)$(R)TriggerOffThresh") {
   field(DTYP, "asynFloat64")
   field(OUT, "@asyn($(PORT) 0)REFRAME_END_THRESH")
-  field(VAL, "0.0")
+  field(VAL, "$(OFF_THRESHOLD=0.0)")
   field(PINI, "1")
 }
 
 record(longout, "$(P)$(R)TriggerCount") {
   field(DTYP, "asynInt32")
   field(OUT, "@asyn($(PORT) 0)REFRAME_TRIGGER_MAX")
-  field(VAL, "1")
+  field(VAL, "$(TRIGGER_COUNT=1)")
   field(PINI, "1")
 }
 
@@ -166,7 +167,8 @@ record(mbbo, "$(P)$(R)TriggerMode") {
   field(ONVL, "1")
   field(TWST, "Continuous")
   field(TWVL, "2")
-  field(VAL,  "2")
+  field(VAL,  "$(TRIGGER_MODE=2)")
+  field(PINI, "1")
 }
 
 record(longin, "$(P)$(R)TriggerCount_RBV") {
@@ -206,7 +208,8 @@ record(mbbo, "$(P)$(R)PermitOverlap") {
   field(ZRVL, "0")
   field(ONST, "Yes")
   field(ONVL, "1")
-  field(VAL, "0")
+  field(VAL, "$(OVERLAP=0)")
+  field(PINI, "1")
 }
 
 
