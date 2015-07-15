@@ -1,0 +1,11 @@
+O.*
+*~
+*.swp
+/lib/
+/bin/
+/data/
+/db/
+/dbd/
+/documentation/doxygen/
+/iocs/exampleReframe/
+
