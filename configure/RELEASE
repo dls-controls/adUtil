@@ -31,6 +31,6 @@ WORK=/dls_sw/work/R3.14.12.3/support
 SUPPORT=/dls_sw/prod/R3.14.12.3/support
 
 ASYN          = $(SUPPORT)/asyn/4-26
-ADCORE        = $(SUPPORT)/ADCore/2-2dls3
-FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-1
+ADCORE        = $(SUPPORT)/ADCore/2-3dls1
+FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-2
 
