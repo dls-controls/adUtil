@@ -27,10 +27,10 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
 
-WORK=/dls_sw/work/R3.14.12.3/support
+#WORK=/dls_sw/work/R3.14.12.3/support
 SUPPORT=/dls_sw/prod/R3.14.12.3/support
 
 ASYN          = $(SUPPORT)/asyn/4-26
-ADCORE        = $(SUPPORT)/ADCore/2-3dls1
-FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-2
+ADCORE        = $(SUPPORT)/ADCore/2-3dls3
+FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-3
 
