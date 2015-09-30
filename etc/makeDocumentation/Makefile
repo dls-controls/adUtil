@@ -4,8 +4,8 @@ include $(TOP)/configure/CONFIG
 # set to -d to get debugging
 DEBUG :=
 
-#XMLBUILDER := dls-xml-iocbuilder.py
-XMLBUILDER := /dls_sw/work/common/python/iocbuilder/xmlbuilder/xmlbuilder.py
+XMLBUILDER := dls-xml-iocbuilder.py
+#XMLBUILDER := /dls_sw/work/common/python/iocbuilder/xmlbuilder/xmlbuilder.py
 
 # this is the doxygen output dir
 DOCDIR := $(TOP)/documentation/doxygen
