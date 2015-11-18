@@ -18,6 +18,8 @@
 # % macro, OVERLAP,       Permit pre- and post-count regions of triggers to overlap with other triggers.
 # % gui, $(PORT), edmtab, NDReframe.edl, P=$(P),R=$(R)
 
+include "NDPluginBase.template"
+
 # # Control record, are we running
 record(busy, "$(P)$(R)Capture") {
   field(DTYP, "asynInt32")
