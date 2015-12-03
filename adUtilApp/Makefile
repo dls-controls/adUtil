@@ -6,5 +6,10 @@ DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *db*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *Db*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *opi*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard protocol))
-include $(TOP)/configure/RULES_DIRS
 
+ifdef BOOST
+  DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard pluginTests))
+  pluginTests_DEPEND_DIRS += src
+endif
+
+include $(TOP)/configure/RULES_DIRS

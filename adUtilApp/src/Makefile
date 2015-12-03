@@ -24,6 +24,11 @@ adUtil_SRCS += NDPluginCircularBuff.cpp
 adUtil_SRCS += NDArrayRing.cpp
 adUtil_SRCS += NDPluginReframe.cpp
 
+INC += NDPluginCircularBuff.h
+INC += NDArrayRing.h
+INC += NDPluginReframe.h
+
+
 # We need to link against the EPICS Base libraries
 #xxx_LIBS += $(EPICS_BASE_IOC_LIBS)
 
