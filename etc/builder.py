@@ -93,7 +93,7 @@ class NDCircularBuff(AsynPort):
     Dependencies = (AdUtil,)    
     _SpecificTemplate = _NDCircularBuff
         
-    def __init__(self, PORT, NDARRAY_PORT, QUEUE = 50, BLOCK = 0, NDARRAY_ADDR = 0, BUFFERS = 1000, MEMORY = 0, Enabled = 1, **args):
+    def __init__(self, PORT, NDARRAY_PORT, QUEUE = 50, BLOCK = 0, NDARRAY_ADDR = 0, BUFFERS = 1000, MEMORY = 0, ENABLED = 1, **args):
         #args["Enabled"] = Enabled
         # Init the superclass (AsynPort)
         self.__super.__init__(PORT)
@@ -106,7 +106,7 @@ class NDCircularBuff(AsynPort):
     # NOTE: _NDPluginBase comes 2nd so we overwrite NDARRAY_PORT argInfo
     ArgInfo = _SpecificTemplate.ArgInfo + makeArgInfo(__init__,
         PORT      = Simple('Port name for the FFT_calc plugin', str),
-        Enabled   = Simple('Plugin Enabled at startup?', int),
+        ENABLED   = Simple('Plugin Enabled at startup?', int),
         QUEUE     = Simple('Input array queue size', int),          
         BLOCK     = Simple('Blocking callbacks?', int),
         NDARRAY_PORT = Ident('Input array port', AsynPort),
@@ -134,7 +134,7 @@ class NDReframe(AsynPort):
     Dependencies = (AdUtil,)    
     _SpecificTemplate = _NDReframe
     
-    def __init__(self, PORT, NDARRAY_PORT, QUEUE = 50, BLOCK = 0, NDARRAY_ADDR = 0, BUFFERS = 1000, MEMORY = 0, Enabled = 1, **args):
+    def __init__(self, PORT, NDARRAY_PORT, QUEUE = 50, BLOCK = 0, NDARRAY_ADDR = 0, BUFFERS = 1000, MEMORY = 0, ENABLED = 1, **args):
         #args["Enabled"] = Enabled
         # Init the superclass (AsynPort)
         self.__super.__init__(PORT)
@@ -147,7 +147,7 @@ class NDReframe(AsynPort):
     # NOTE: _NDPluginBase comes 2nd so we overwrite NDARRAY_PORT argInfo
     ArgInfo = _SpecificTemplate.ArgInfo + makeArgInfo(__init__,
         PORT      = Simple('Port name for the FFT_calc plugin', str),
-        Enabled   = Simple('Plugin Enabled at startup?', int),
+        ENABLED   = Simple('Plugin Enabled at startup?', int),
         QUEUE     = Simple('Input array queue size', int),          
         BLOCK     = Simple('Blocking callbacks?', int),
         NDARRAY_PORT = Ident('Input array port', AsynPort),
