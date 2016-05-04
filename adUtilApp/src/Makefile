@@ -20,6 +20,7 @@ adUtil_SRCS += bessel.cpp
 adUtil_SRCS += window.cpp
 adUtil_SRCS += fftpack.cpp
 adUtil_SRCS += FFT_calc.cpp
+adUtil_SRCS += FFTInt_calc.cpp
 adUtil_SRCS += NDPluginCircularBuff.cpp
 adUtil_SRCS += NDArrayRing.cpp
 adUtil_SRCS += NDPluginReframe.cpp

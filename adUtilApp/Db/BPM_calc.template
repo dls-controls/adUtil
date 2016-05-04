@@ -12,6 +12,9 @@
 # % macro, GEOMETRY, Geometry of BPM, 0=Slit, 1=QBPM
 # This associates the template with an edm screen
 # % gui, $(PORT), edmtab, BPM_calc.edl, P=$(P),R=$(R)
+
+include "NDPluginBase.template"
+
 ###################################################################
 #  These records control the geometry (slit blades / qbpm)        #
 ###################################################################

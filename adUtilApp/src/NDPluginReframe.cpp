@@ -956,9 +956,6 @@ NDPluginReframe::NDPluginReframe(const char *portName, int queueSize, int blocki
     setIntegerParam(NDPluginReframeTriggerDimension, 1);
     setIntegerParam(NDPluginReframeTriggerChannel, 0);
 
-    setIntegerParam(NDPluginReframePreTriggerSamples, 100);
-    setIntegerParam(NDPluginReframePostTriggerSamples, 100);
-
     setIntegerParam(NDPluginReframeTriggerStartCondition, AboveThreshold);
     setIntegerParam(NDPluginReframeTriggerEndCondition, BelowThreshold);
 

@@ -1,4 +1,5 @@
 registrar("BPM_calc_register")
 registrar("FFT_calc_register")
+registrar("FFT_Integration_register")
 registrar("NDCircularBuffRegister")
 registrar("NDReframeRegister")
