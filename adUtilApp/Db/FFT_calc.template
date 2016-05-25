@@ -11,6 +11,8 @@
 # This associates the template with an edm screen
 # % gui, $(PORT), edmtab, FFT_calc.edl, P=$(P),R=$(R)
 
+include "NDPluginBase.template"
+
 record(mbbo, "$(P)$(R)Window")
 {
     field(PINI, "YES")
