@@ -31,8 +31,8 @@ EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
 SUPPORT=/dls_sw/prod/R3.14.12.3/support
 
 ASYN          = $(SUPPORT)/asyn/4-26
-ADCORE        = $(SUPPORT)/ADCore/2-4dls2
-ADEXAMPLE     = $(SUPPORT)/ADExample/2-0-1dls2
-FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-8
+ADCORE        = $(SUPPORT)/ADCore/2-4dls5
+ADEXAMPLE     = $(SUPPORT)/ADExample/2-0-1dls3
+FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-0dls0-9
 
 
