@@ -12,3 +12,5 @@ O.*
 /documentation/doxygen/
 /iocs/exampleReframe/
 /include/
+.idea/
+cmake-build*/
