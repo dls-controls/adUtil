@@ -8,7 +8,6 @@ PROD_IOC += plugin-test
 plugin-test_SRCS += plugin-test.cpp
 plugin-test_SRCS += testingutilities.cpp
 plugin-test_SRCS += NDPluginMock.cpp
-#plugin-test_SRCS += test_NDPluginCircularBuff.cpp
 plugin-test_SRCS += test_NDPluginReframe.cpp
 USR_INCLUDES += $(HDF5_INCLUDE)
 USR_INCLUDES += $(SZ_INCLUDE)

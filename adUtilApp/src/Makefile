@@ -21,12 +21,8 @@ adUtil_SRCS += window.cpp
 adUtil_SRCS += fftpack.cpp
 adUtil_SRCS += FFT_calc.cpp
 adUtil_SRCS += FFTInt_calc.cpp
-adUtil_SRCS += NDPluginCircularBuff.cpp
-adUtil_SRCS += NDArrayRing.cpp
 adUtil_SRCS += NDPluginReframe.cpp
 
-INC += NDPluginCircularBuff.h
-INC += NDArrayRing.h
 INC += NDPluginReframe.h
 
 
