@@ -988,8 +988,9 @@ extern "C" int NDReframeConfigure(const char *portName, int queueSize, int block
                                 const char *NDArrayPort, int NDArrayAddr,
                                 int maxBuffers, size_t maxMemory)
 {
-    new NDPluginReframe(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr,
-                      maxBuffers, maxMemory, 0, 2000000);
+    NDPluginReframe *pPlugin = new NDPluginReframe(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr,
+                                                   maxBuffers, maxMemory, 0, 2000000);
+    pPlugin->start();
     return(asynSuccess);
 }
 

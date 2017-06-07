@@ -261,8 +261,9 @@ extern "C" int BPM_calcConfigure(const char *portName, int queueSize,
                                  int NDArrayAddr, int maxBuffers,
                                  size_t maxMemory,int priority, int stackSize)
 {
-    new BPM_calc(portName, queueSize, blockingCallbacks, NDArrayPort,
-                 NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+    BPM_calc *pPlugin = new BPM_calc(portName, queueSize, blockingCallbacks, NDArrayPort,
+                                     NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+    pPlugin->start();
     return(asynSuccess);
 }
 

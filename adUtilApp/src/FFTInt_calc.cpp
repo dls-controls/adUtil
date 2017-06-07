@@ -130,8 +130,9 @@ extern "C" int FFT_IntegrationConfigure(const char *portName, int queueSize,
                                  int NDArrayAddr, int maxBuffers,
                                  size_t maxMemory,int priority, int stackSize)
 {
-    new FFT_Integration(portName, queueSize, blockingCallbacks, NDArrayPort,
-                 NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+    FFT_Integration *pPlugin = new FFT_Integration(portName, queueSize, blockingCallbacks, NDArrayPort,
+                                                   NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+    pPlugin->start();
     return(asynSuccess);
 }
 

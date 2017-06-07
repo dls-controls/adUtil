@@ -270,8 +270,9 @@ FFT_calc::FFT_calc(const char *portName, int queueSize, int blockingCallbacks,
 extern "C" int FFT_calcConfigure(const char *portName, int queueSize,
 		int blockingCallbacks, const char *NDArrayPort, int NDArrayAddr,
 		int maxBuffers, size_t maxMemory, int priority, int stackSize) {
-	new FFT_calc(portName, queueSize, blockingCallbacks, NDArrayPort,
-			NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+	FFT_calc *pPlugin = new FFT_calc(portName, queueSize, blockingCallbacks, NDArrayPort,
+									 NDArrayAddr, maxBuffers, maxMemory, priority, stackSize);
+	pPlugin->start();
 	return (asynSuccess);
 }
 
