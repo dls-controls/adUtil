@@ -5,7 +5,7 @@
 ifneq (,$(findstring linux-x86_64, $(EPICS_HOST_ARCH)))
 
 #IOCS := example example_sim 
-IOCS := exampleReframe
+IOCS := example exampleReframe
 
 else
 

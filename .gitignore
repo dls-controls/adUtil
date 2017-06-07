@@ -10,7 +10,7 @@ O.*
 /db/
 /dbd/
 /documentation/doxygen/
-/iocs/exampleReframe/
+/iocs/
 /include/
 .idea/
 cmake-build*/
