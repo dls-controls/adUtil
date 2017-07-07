@@ -450,8 +450,8 @@ NDArray *NDPluginReframe::constructOutput(Trigger *trig)
 
   // Handle the unique ID
   this->lock();
-  outputArray->uniqueId = arrayCount;
   arrayCount++;
+  outputArray->uniqueId = arrayCount;
   setIntegerParam(NDPluginReframeTriggerTotal, arrayCount);
   setIntegerParam(NDPluginReframeIgnoredCount, ignoredTrigs);
 
