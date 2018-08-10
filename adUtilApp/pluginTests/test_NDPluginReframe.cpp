@@ -63,7 +63,7 @@ struct ReframeFixture
 
     ReframeFixture()
     {
-        arrayPool = new NDArrayPool(100, 0);
+        arrayPool = new NDArrayPool((asynNDArrayDriver*) NULL, 0);
         arrays = new vector<NDArray *>;
 
 	std::string dummy_port("simPort"), testPort("testPort"), dsPort("dsPort");

@@ -25,12 +25,13 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
+EPICS_BASE=/dls_sw/epics/R3.14.12.7/base
 
 #WORK=/dls_sw/work/R3.14.12.3/support
-SUPPORT=/dls_sw/prod/R3.14.12.3/support
+SUPPORT=/dls_sw/prod/R3.14.12.7/support
+WORK=/dls_sw/work/R3.14.12.7/support
 
-ASYN          = $(SUPPORT)/asyn/4-31
-ADCORE        = $(SUPPORT)/ADCore/2-6dls5
-ADSIMDETECTOR = $(SUPPORT)/ADSimDetector/2-5dls3
-FFMPEGSERVER  = $(SUPPORT)/ffmpegServer/3-1dls1-5
+ASYN          = $(SUPPORT)/asyn/4-33
+ADCORE        = $(WORK)/ADCore
+ADSIMDETECTOR = $(WORK)/ADSimDetector
+FFMPEGSERVER  = $(WORK)/ffmpegServer
