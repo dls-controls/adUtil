@@ -16,6 +16,6 @@ USR_INCLUDES += $(XML2_INCLUDE)
 plugin-test_LIBS += boost_unit_test_framework simDetector
 boost_unit_test_framework_DIR=$(BOOST_LIB)
 
-PROD_LIBS += NDPlugin asyn adUtil
+PROD_LIBS += Com NDPlugin asyn ADBase adUtil
 
 include $(TOP)/configure/RULES

@@ -103,7 +103,7 @@ void BPM_calc::processCallbacks(NDArray *pArray)
     NDArrayInfo_t arrayInfo;
 
     /* Call the base class method */
-    NDPluginDriver::processCallbacks(pArray);
+    NDPluginDriver::beginProcessCallbacks(pArray);
 
     /* Make sure we have a float64 NDArray */
     if (pArray->dataType != NDFloat64) {

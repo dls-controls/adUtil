@@ -8,8 +8,8 @@ DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *opi*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard protocol))
 
 ifdef BOOST
-  DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard pluginTests))
-  pluginTests_DEPEND_DIRS += src
+ DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard pluginTests))
+ pluginTests_DEPEND_DIRS += src
 endif
 
 include $(TOP)/configure/RULES_DIRS

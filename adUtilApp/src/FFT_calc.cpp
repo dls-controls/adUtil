@@ -59,7 +59,7 @@ void FFT_calc::processCallbacks(NDArray *pInput) {
 	NDArrayInfo_t arrayInfo;
 
 	/* Call the base class processCallbacks */
-	NDPluginDriver::processCallbacks(pInput);
+	NDPluginDriver::beginProcessCallbacks(pInput);
 	pInput->getInfo(&arrayInfo);
 
 	/* Make sure we have a float64 NDArray */

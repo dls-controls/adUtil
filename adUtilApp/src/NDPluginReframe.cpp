@@ -532,7 +532,7 @@ void NDPluginReframe::processCallbacks(NDArray *pArray)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s:%s: Processing array of size %lu\n", driverName, functionName, pArray->dims[1].size);
     
     /* Call the base class method */
-    NDPluginDriver::processCallbacks(pArray);
+    NDPluginDriver::beginProcessCallbacks(pArray);
 
     int mode;
     getIntegerParam(NDPluginReframeMode, &mode);

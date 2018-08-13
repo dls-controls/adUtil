@@ -39,7 +39,7 @@ std::deque<NDArray *> *NDPluginMock::arrays()
 
 void NDPluginMock::processCallbacks(NDArray *pArray)
 {
-    NDPluginDriver::processCallbacks(pArray);
+    NDPluginDriver::beginProcessCallbacks(pArray);
     NDArray *pArrayCpy = this->pNDArrayPool->copy(pArray, NULL, 1);
     if (pArrayCpy) {
         arrays_->push_back(pArrayCpy);
