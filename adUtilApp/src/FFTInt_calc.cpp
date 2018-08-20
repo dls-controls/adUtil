@@ -110,12 +110,12 @@ FFT_Integration::FFT_Integration(const char *portName, int queueSize, int blocki
                    size_t maxMemory, int priority, int stackSize)
     /* Invoke the base class constructor */
     : NDPluginDriver(portName, queueSize, blockingCallbacks, NDArrayPort,
-                     NDArrayAddr, 1, NUM_FFT_INTEGRATION_PARAMS, maxBuffers, maxMemory,
+                     NDArrayAddr, 1, maxBuffers, maxMemory,
                      asynGenericPointerMask,
                      asynGenericPointerMask,
                      /* asynFlags is set to 0, because this plugin cannot
                         block and is not multi-device. It does autoconnect */
-                     0, 1, priority, stackSize)
+                     0, 1, priority, stackSize, 1)
 {
 	/* Add parameters */
     /* Set the plugin type string */

@@ -900,10 +900,10 @@ NDPluginReframe::NDPluginReframe(const char *portName, int queueSize, int blocki
                          int priority, int stackSize)
     /* Invoke the base class constructor */
     : NDPluginDriver(portName, queueSize, blockingCallbacks,
-                   NDArrayPort, NDArrayAddr, 1, NUM_NDPLUGIN_REFRAME_PARAMS, maxBuffers, maxMemory,
+                   NDArrayPort, NDArrayAddr, 1, maxBuffers, maxMemory,
                    asynInt32ArrayMask | asynFloat64ArrayMask | asynGenericPointerMask,
                    asynInt32ArrayMask | asynFloat64ArrayMask | asynGenericPointerMask,
-                   0, 1, priority, stackSize)
+                   0, 1, priority, stackSize, 1)
 {
     //int traceMask = pasynTrace->getTraceMask(pasynUserSelf);
     //pasynTrace->setTraceMask(pasynUserSelf, traceMask | ASYN_TRACE_FLOW);

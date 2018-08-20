@@ -233,12 +233,12 @@ BPM_calc::BPM_calc(const char *portName, int queueSize, int blockingCallbacks,
                    size_t maxMemory, int priority, int stackSize)
     /* Invoke the base class constructor */
     : NDPluginDriver(portName, queueSize, blockingCallbacks, NDArrayPort,
-                     NDArrayAddr, 1, NUM_BPM_CALC_PARAMS, maxBuffers, maxMemory,
+                     NDArrayAddr, 1, maxBuffers, maxMemory,
                      asynGenericPointerMask,
                      asynGenericPointerMask,
                      /* asynFlags is set to 0, because this plugin cannot
                         block and is not multi-device. It does autoconnect */
-                     0, 1, priority, stackSize)
+                     0, 1, priority, stackSize, 1)
 {
 	/* Add parameters */
     createParam("GEOMETRY", asynParamInt32, &BPM_calcGeometry);

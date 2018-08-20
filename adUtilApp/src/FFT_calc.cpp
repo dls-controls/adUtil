@@ -247,11 +247,11 @@ FFT_calc::FFT_calc(const char *portName, int queueSize, int blockingCallbacks,
 /* Invoke the base class constructor */
 :
 		NDPluginDriver(portName, queueSize, blockingCallbacks, NDArrayPort,
-				NDArrayAddr, 1, NUM_FFT_CALC_PARAMS, maxBuffers, maxMemory,
+				NDArrayAddr, 1, maxBuffers, maxMemory,
 				asynGenericPointerMask, asynGenericPointerMask,
 				/* asynFlags is set to 0, because this plugin cannot
 				 block and is not multi-device. It does autoconnect */
-				0, 1, priority, stackSize) {
+				0, 1, priority, stackSize, 1) {
 	/* Initialise local vars */
 	pWindow = NULL;
 	pWorkspace = NULL;

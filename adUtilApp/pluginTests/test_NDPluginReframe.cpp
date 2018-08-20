@@ -76,7 +76,7 @@ struct ReframeFixture
         // We need some upstream driver for our test plugin so that calls to connectArrayPort don't fail, but we can then ignore it and send
         // arrays by calling processCallbacks directly.
 
-        dummy_driver = new asynPortDriver(dummy_port.c_str(), 0, 1, asynGenericPointerMask, asynGenericPointerMask, 0, 0, 0, 2000000);
+        dummy_driver = new asynPortDriver(dummy_port.c_str(), 0, asynGenericPointerMask, asynGenericPointerMask, 0, 0, 0, 2000000);
 
         // This is the plugin under test
         rf = new NDPluginReframe(testPort.c_str(), 50, 0, dummy_port.c_str(), 0, 1000, -1, 0, 2000000);
