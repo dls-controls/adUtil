@@ -11,28 +11,26 @@ class _gdaPlugins(Xml):
 class gdaPlugins(Device):
 
     def __init__(
-        self, CAM, P, PORTPREFIX, PLUGINQUEUE=16, PLUGINBUFFERS=2,
-        HIST_SIZE=256, NCHANS=1024, XSIZE=1024, YSIZE=1024, ARRFTVL="UCHAR",
-        NELEMENTS=786432, DISPLAYQUEUE=2, ARRTYPE="Int8", HTTP_PORT=8080,
-        CentroidThreshold=50, ComputeProfiles=1, ComputeStatistics=0,
-        ComputeCentroid=0):
+        self, CAM, P, PORTPREFIX, PLUGINQUEUE=16, HIST_SIZE=256, NCHANS=1024, 
+        XSIZE=1024, YSIZE=1024, ARRFTVL="UCHAR", NELEMENTS=786432, 
+        DISPLAYQUEUE=2, ARRTYPE="Int8", HTTP_PORT=8080, CentroidThreshold=50,
+        ComputeProfiles=1, ComputeStatistics=0, ComputeCentroid=0):
 
         # I wish I could easily unpack dictionaries in Python 2...
         _gdaPlugins(
             CAM=CAM, P=P, PORTPREFIX=PORTPREFIX, PLUGINQUEUE=PLUGINQUEUE,
-            PLUGINBUFFERS=PLUGINBUFFERS, HIST_SIZE=HIST_SIZE, NCHANS=NCHANS,
-            XSIZE=XSIZE, YSIZE=YSIZE, ARRFTVL=ARRFTVL, NELEMENTS=NELEMENTS,
-            DISPLAYQUEUE=DISPLAYQUEUE, ARRTYPE=ARRTYPE, HTTP_PORT=HTTP_PORT,
+            HIST_SIZE=HIST_SIZE, NCHANS=NCHANS, XSIZE=XSIZE, YSIZE=YSIZE, 
+            ARRFTVL=ARRFTVL, NELEMENTS=NELEMENTS, DISPLAYQUEUE=DISPLAYQUEUE, 
+            ARRTYPE=ARRTYPE, HTTP_PORT=HTTP_PORT, 
             CentroidThreshold=CentroidThreshold, ComputeProfiles=ComputeProfiles,
             ComputeStatistics=ComputeStatistics, ComputeCentroid=ComputeCentroid)
 
 
     ArgInfo = makeArgInfo(__init__,
-        CAM = Ident("Areadetecor camera to connect to", ADCore),
+        CAM = Ident("Areadetector camera to connect to", ADCore),
         P = Simple("PV prefix for all plugins", str),
         PORTPREFIX = Simple("Asyn port name prefix for each plugin", str),
         PLUGINQUEUE = Simple("Size of queue for each plugin (except NDStdArrays)", int),
-        PLUGINBUFFERS = Simple("Size of buffer for each plugin", int),
         HIST_SIZE = Simple("Size of histogram in NDStats plugins", int),
         NCHANS = Simple("Number of elements in the NDStats waveforms for past statistics", int),
         XSIZE = Simple("Size of NDStats X Histograms", int),
