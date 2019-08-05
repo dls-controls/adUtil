@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <components arch="linux-x86_64">
+	<adUtil.cameraDummy name="$(CAM)"/>
 	<ADCore.NDROI ADDR="0" ENABLED="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).roi" QUEUE="$(PLUGINQUEUE=16)" R=":ROI:" TIMEOUT="1"/>
 	<ADCore.NDROI ADDR="0" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).rois.roi1" QUEUE="$(PLUGINQUEUE=16)" R=":ROI1:" TIMEOUT="1"/>
 	<ADCore.NDROI ADDR="0" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).rois.roi2" QUEUE="$(PLUGINQUEUE=16)" R=":ROI2:" TIMEOUT="1"/>
@@ -21,7 +22,7 @@
 	<ADCore.NDFileTIFF ADDR="0" ENABLED="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).tiff" QUEUE="$(PLUGINQUEUE=16)" R=":TIFF:" TIMEOUT="1"/>
 	<ADCore.NDFileHDF5 ADDR="0" ENABLED="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).hdf" QUEUE="$(PLUGINQUEUE=16)" R=":HDF5:" TIMEOUT="1"/>
 	<ffmpegServer.ffmpegStream ADDR="0" HTTP_PORT="$(HTTP_PORT=8080)" NDARRAY_ADDR="0" NDARRAY_PORT="$(PORTPREFIX).over" P="$(P)" PORT="$(PORTPREFIX).mjpg" QUEUE="$(DISPLAYQUEUE=2)" R=":MJPG:" TIMEOUT="1"/>
-	<ADCore.NDPvaPlugin ADDR="0" ENABLED="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).pva" QUEUE="$(PLUGINQUEUE=16)" R=":PVA:" PVNAME="$(P):PVA:ARRAY" TIMEOUT="1"/>
+	<ADCore.NDPvaPlugin ADDR="0" ENABLED="1" NDARRAY_ADDR="0" NDARRAY_PORT="$(CAM)" P="$(P)" PORT="$(PORTPREFIX).pva" PVNAME="$(P):PVA:ARRAY" QUEUE="$(PLUGINQUEUE=16)" R=":PVA:" TIMEOUT="1"/>
 	<EPICS_BASE.StartupCommand command="dbpf &quot;$(P):FIMG:FileTemplate&quot;, &quot;%s/%s_%d.avi&quot;" post_init="True"/>
 	<EPICS_BASE.StartupCommand command="dbpf &quot;$(P):HDF5:FileTemplate&quot;, &quot;%s/%s_%d.h5&quot;" post_init="True"/>
 	<!--Sync STAT cursor position with grid position-->
