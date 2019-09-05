@@ -5,14 +5,6 @@ from iocbuilder.modules.ADCore import ADCore, ADBaseTemplate, NDPluginBaseTempla
 from iocbuilder.modules.asyn import AsynIP, AsynPort
 
 
-class cameraDummy(Device):
-    """Dummy object to stop adUtil complaining when gdaPlugins is instantiated"""
-
-    def __init__(self):
-        pass
-
-    ArgInfo = makeArgInfo(__init__)
-
 class _gdaPlugins(Xml):
     """This plugin instantiates a standard set of plugins for use by GDA:"""
     TemplateFile = 'gdaPlugins.xml'
